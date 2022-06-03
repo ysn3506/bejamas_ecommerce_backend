@@ -26,6 +26,19 @@ router.get("/query/:searchBy", async (req, res) => {
   }
 });
 
+
+//GET CATEGORIES
+router.get("/categories", async (req, res) => {
+  try {
+    const categories = await Photos.distinct("category");
+    res.status(200).header({ Allowed: true }).send({
+      categories
+    });
+  } catch (error) {
+    res.send({ message: error });
+  }
+});
+
 //GET PHOTO BY ID
 router.get("/filter/:id", async(req,res) => {
    try {
