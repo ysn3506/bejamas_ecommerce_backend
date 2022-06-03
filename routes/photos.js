@@ -30,7 +30,7 @@ router.get("/query/:searchBy", async (req, res) => {
 router.get("/:id", async(req,res) => {
    try {
     const selectedPhoto= await Photos.findById(req.params.id)
-     res.send({
+     res.status(200).header({Allowed:true}).send({
        selectedPhoto
      });
    } catch (error) {
