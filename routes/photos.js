@@ -44,18 +44,18 @@ router.get("/filter/:id", async(req,res) => {
 router.get("/filter", async (req, res) => {
   let query; 
 
-  if (req.body?.categories && req.body?.price) {
+  if (req.params?.categories && req.params?.price) {
     query = {
-      category: { $in: req.body.categories },
-      price: { $gt: req.body?.price[0], $lt: req.body?.price[1] },
+      category: { $in: req.params.categories },
+      price: { $gt: req.params?.price[0], $lt: req.params?.price[1] },
     };
-  } else if (req.body?.categories && !req.body?.price) {
+  } else if (req.params?.categories && !req.params?.price) {
     query = {
-      category: { $in: req.body.categories },
+      category: { $in: req.params.categories },
     };
-  } else if (!req.body?.categories && req.body?.price) {
+  } else if (!req.params?.categories && req.params?.price) {
     query = {
-      price: { $gt: req.body?.price[0], $lt: req.body?.price[1] },
+      price: { $gt: req.params?.price[0], $lt: req.params?.price[1] },
     };
   } else {
     query = {};
