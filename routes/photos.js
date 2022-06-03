@@ -26,7 +26,7 @@ router.get("/query/:searchBy", async (req, res) => {
   }
 });
 
-
+//GET PHOTO BY ID
 router.get("/filter/:id", async(req,res) => {
    try {
     const selectedPhoto= await Photos.findById(req.params.id)
@@ -37,6 +37,16 @@ router.get("/filter/:id", async(req,res) => {
      res.send({ message: error });
    }
 })
+
+//GET FEATURED PHOTO
+router.get("/featured", async (req, res) => {
+  try {
+    const featuredPhoto = await Photos.find({ featured: true });
+    res.json(featuredPhoto);
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
 
 
 
