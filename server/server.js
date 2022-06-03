@@ -7,7 +7,7 @@ const bp = require("body-parser")
 const insertPhotosToDB=require("../insertPhotosToDB")
 
 
-require("dotenv/config")
+// require("dotenv/config")
 
 app.use(cors());
 app.use(bp.json());
@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 
 
 mongoose.connect(
-  process.env.DB_CONNECTION,
+  'mongodb+srv://bejamas:bejamas@bejamas.2zoslfw.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true },
   (err) => {
     if (err) console.log(err);

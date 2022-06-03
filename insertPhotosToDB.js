@@ -3,7 +3,7 @@ const li = require("lorem-ipsum").LoremIpsum;
 const { v4: uuidv4 } = require('uuid');
 const Photos = require("./models/Photos");
 
-require("dotenv/config")
+// require("dotenv/config")
 
 
 
@@ -28,7 +28,7 @@ const resps = [];
 const connection = axios.create({
   baseURL: "https://api.pexels.com/v1/",
   headers: {
-    Authorization: process.env.PEXEL_API_TOKEN,
+    Authorization:"563492ad6f91700001000001e794c86a7dd34015987b34e95a57e751",
   },
 });
 
