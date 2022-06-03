@@ -40,22 +40,22 @@ router.get("/filter/:id", async(req,res) => {
 
 
 
-//GET PHOTOS BY  MULTIPLE FILTERS
-router.get("/filter", async (req, res) => {
+//IN ORDER TO GET PHOTOS BY  MULTIPLE FILTERS
+router.post("/filter", async (req, res) => {
   let query; 
 
-  if (req.params?.categories && req.params?.price) {
+  if (req.body?.categories && req.body?.price) {
     query = {
-      category: { $in: req.params.categories },
-      price: { $gt: req.params?.price[0], $lt: req.params?.price[1] },
+      category: { $in: req.body.categories },
+      price: { $gt: req.body?.price[0], $lt: req.body?.price[1] },
     };
-  } else if (req.params?.categories && !req.params?.price) {
+  } else if (req.body?.categories && !req.body?.price) {
     query = {
-      category: { $in: req.params.categories },
+      category: { $in: req.body.categories },
     };
-  } else if (!req.params?.categories && req.params?.price) {
+  } else if (!req.body?.categories && req.body?.price) {
     query = {
-      price: { $gt: req.params?.price[0], $lt: req.params?.price[1] },
+      price: { $gt: req.body?.price[0], $lt: req.body?.price[1] },
     };
   } else {
     query = {};
