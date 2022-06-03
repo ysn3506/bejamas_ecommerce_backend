@@ -27,7 +27,7 @@ router.get("/query/:searchBy", async (req, res) => {
 });
 
 
-router.get("/:id", async(req,res) => {
+router.get("/filter/:id", async(req,res) => {
    try {
     const selectedPhoto= await Photos.findById(req.params.id)
      res.status(200).header({Allowed:true}).send({
