@@ -38,6 +38,17 @@ router.get("/filter/:id", async(req,res) => {
    }
 })
 
+//GET RECOMMENDED PHOTOS
+router.post("/recommended", async (req, res) => {
+    try {
+      const recommendedPhotos = await Photos.find({ picId: { $in: req.body.recommended } })
+      res.json(recommendedPhotos);
+    } catch (error) {
+        res.json({ message: error });
+    }
+
+})
+
 //GET FEATURED PHOTO
 router.get("/featured", async (req, res) => {
   try {
