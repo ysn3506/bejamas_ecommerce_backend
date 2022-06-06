@@ -78,27 +78,34 @@ router.get("/featured", async (req, res) => {
 router.post("/filter", async (req, res) => {
   let query; 
 
-  if (req.body?.categories && req.body?.price) {
+  if (req.body?.filter?.categories && req.body?.filter?.price) {
     query = {
-      category: { $in: req.body.categories },
-      price: { $gt: req.body?.price[0], $lt: req.body?.price[1] },
+      category: { $in: req.body.filter?.categories },
+      price: {
+        $gt: req.body?.filter?.price[0],
+        $lt: req.body?.filter?.price[1],
+      },
     };
-  } else if (req.body?.categories && !req.body?.price) {
+  } else if (req.body?.filter?.categories && !req.body?.filter?.price) {
     query = {
-      category: { $in: req.body.categories },
+      category: { $in: req.body.filter?.categories },
     };
-  } else if (!req.body?.categories && req.body?.price) {
+  } else if (!req.body?.filter?.categories && req.body?.filter?.price) {
     query = {
-      price: { $gt: req.body?.price[0], $lt: req.body?.price[1] },
+      price: {
+        $gt: req.body?.filter?.price[0],
+        $lt: req.body?.filter?.price[1],
+      },
     };
   } else {
     query = {};
   }
 
   // IN ORDER TO PROVIDE PAGINATION, ...EVERY PAGE WILL SHOW 6 ITEMS
-  const page = req.body.page || 0;
+  const page = req.body.filter?.page || 0;
+  const sorting=req.body?.sort||{}
     try {
-      const allPhotos = await Photos.find(query);
+      const allPhotos = await Photos.find(query).sort(sorting);
       const photosToSend =  allPhotos.slice(page * 6, page * 6 + 6);
       res.send({
         totalNumberOfPhotos: allPhotos.length,
